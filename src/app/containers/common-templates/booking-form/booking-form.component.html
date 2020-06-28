@@ -39,8 +39,12 @@
               </select>   -->
              
             <p-multiSelect [styleClass]="'p-custom-multiselect'" [filter]="false" [options]="services" 
-            [(ngModel)]="booking.orderServiceVos" optionLabel="serviceName"></p-multiSelect>
+            [(ngModel)]="orderServiceVos" optionLabel="serviceName"
+             (onChange)="setService(orderServiceVos, $event)"></p-multiSelect>
             </div>
+
+
+           
             <div class="col-xl-6 col-md-6">
               <select nice-select name="barber" #barber required [(ngModel)]="booking.empId" [value]="booking.empId"
                 [attr.data-value]="booking.empId">
@@ -54,6 +58,10 @@
                 <option value="3">kalu</option>
               </select> -->
             </div>
+            <div class="col-xl-6 col-md-6" style="font-size: 10px;">
+              <button class="btn slot-btn" 
+               *ngFor="let slot of slotList; let i = index" [ngClass]="activebtn === i ? 'active-btn' : ''" (click)="activebtn = i">{{slot}}</button>
+   </div>
             <div class="col-xl-6 col-md-6">
               <input type="text" name="name" [(ngModel)]="booking.name" #name required placeholder="Your name" />
             </div>

@@ -68,6 +68,8 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
       { label: 'Paris', value: 'PRS' }
     ];
   }
+  activebtn;
+  slotList=['4.34-4.40','4.34-4.40','4.34-4.40','4.34-4.40','4.34-4.40','4.34-4.40','4.34-4.40','4.34-4.40','4.34-4.40']
 
   ngOnInit() {
     this.httpService.getServices().subscribe((data: SelectItem[]) => {
@@ -124,18 +126,25 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
     }
   }
 
-  setService(id) {
-    return;
-    /*this.services.forEach(element => {
-      if (element.serviceId == id) {
-        element.customerid = 0;
-        element.orderserviceid = 0;
-        element.serviceid = element.serviceId;
-        // delete  element.serviceId;
-        this.booking.orderServiceVos = [element];
-        this.userList = element.employeeVoList;
-      }
-    });*/
+  setService(id, event) {
+    // return;
+    let serviceList = [];
+    for(let service of event.value){
+      serviceList.push({serviceId: service.serviceId})
+    }
+    this.httpService.getUserDetails({serviceLists :serviceList}).subscribe(data => {
+      this.userList = data;
+    });
+    // this.services.forEach(element => {
+      // if (element.serviceId == id) {
+      //   element.customerid = 0;
+      //   element.orderserviceid = 0;
+      //   element.serviceid = element.serviceId;
+      //   // delete  element.serviceId;
+      //   this.booking.orderServiceVos = [element];
+      //   this.userList = element.employeeVoList;
+      // }
+    // });
   }
 
   submitForm() {
@@ -148,10 +157,10 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
     this.booking.appointmentTime =
       this.booking.appointmentTime.getFullYear() + "-" +
       ("0" + (this.booking.appointmentTime.getMonth() + 1)).slice(-2) + "-" +
-      ("0" + this.booking.appointmentTime.getDate()).slice(-2) + " " +
-      ("0" + this.booking.appointmentTime.getHours()).slice(-2) + ":" +
-      ("0" + this.booking.appointmentTime.getMinutes()).slice(-2) + ":" +
-      ("0" + this.booking.appointmentTime.getSeconds()).slice(-2);
+      ("0" + this.booking.appointmentTime.getDate()).slice(-2) ;
+      // ("0" + this.booking.appointmentTime.getHours()).slice(-2) + ":" +
+      // ("0" + this.booking.appointmentTime.getMinutes()).slice(-2) + ":" +
+      // ("0" + this.booking.appointmentTime.getSeconds()).slice(-2);
 
     this.httpService.saveBooking(this.booking).subscribe(data => {
       if (!data['availableSlotsList'] || (data['availableSlotsList'] && data['availableSlotsList'].length <= 0)) {

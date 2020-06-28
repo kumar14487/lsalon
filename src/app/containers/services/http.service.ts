@@ -590,6 +590,10 @@ export class HttpService {
     return this.http.post(this.URL + environment.saveBooking, data);
   }
 
+  getUserDetails(serviceList){
+    return this.http.post(this.URL + environment.getServiceUSer, serviceList)
+  }
+
   addUser(data) {
     return this.http.post(this.URL + environment.addUser, data);
   }
