@@ -1,0 +1,42 @@
+.video_info.right-alt {
+  padding-left: 50px;
+  /* padding-right: 300px; */
+}
+
+.video_info {
+  /* padding-left: 300px; */
+  padding-right: 50px;
+}
+
+/* .cutter_muster .single_master .thumb img {
+  height: fit-content;
+} */
+
+.show-price {
+  padding: 10px;
+  /* border: 1px solid; */
+  color: rgb(0, 0, 0);
+  background-color: rgba(255, 255, 255, 0.82);
+  border-radius: 60px;
+  font-size: 23px;
+  font-family: cursive;
+  font-variant: petite-caps;
+}
+.inner-head {
+  font-size: medium;
+  font-weight: bold;
+}
+
+.title-con, .career-con{
+  border-bottom: 1px solid #bc9321;
+}
+.about-us {
+  background-color: #3D3D3D;
+  color: #ccc;
+}
+
+.about-header{
+  color: #4a3600;
+  font-weight: 900;
+  margin: 0px 0px 10px 0;
+}

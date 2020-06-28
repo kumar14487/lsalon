@@ -1,0 +1,200 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="row remove-margin card-header ">
+                    <div class="col-6">
+                        Service Details
+                    </div>
+                    <div class="col-6">
+                        <button *ngIf="!isNew" (click)="addNew()" type="submit" class="btn btn-sm btn-primary pull-right ml-1"><i
+                            class="fa fa-plus"></i>
+                          Add</button>
+                        <button *ngIf="isNew" (click)="addNew()" type="submit" class="btn btn-sm btn-danger pull-right ml-1"><i
+                            class="fa fa-close"></i>
+                          Close</button>
+                      </div>
+                </div>
+                <div class="card-body">
+                        <ng-container *ngIf="!isNew; else serviceDetails">
+                    <p-table [value]="services" dataKey="serviceId" rowExpandMode="single"
+                        [expandedRowKeys]="expandedRows"
+                        tableStyleClass="table table-responsive-sm table-hover table-outline mb-0">
+                        <!-- <table class="table table-responsive-sm table-hover table-outline mb-0"> -->
+                        <ng-template pTemplate="header">
+                            <!-- <thead class="thead-light"> -->
+                            <tr style="height: auto;">
+                                <th class="text-center"><i class="icon-people"></i></th>
+                                <th>ServicesName</th>
+                                <th class="text-center">Price</th>
+                                <th>Time</th>
+                                <th>Action</th>
+                            </tr>
+                            <!-- </thead> -->
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-i="rowIndex">
+                            <!-- <tbody> -->
+                            <!-- <ng-container *ngFor="let booking of bookingList; let index = index"> -->
+                            <tr>
+                                <td class="text-center">
+                                    <div class="avatar" (mouseenter)="imagePath = rowData.imgPath ;op1.toggle($event)">
+                                        <img [src]="rowData.imgPath || 'assets/style1/img/team/1.png'" class="img-avatar"
+                                            alt="avatar">
+                                        <span class="avatar-status badge-success"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>{{rowData.serviceName}}</div>
+                                    <div class="small text-muted">
+                                        Discription:{{ rowData.serviceDesc}}
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <!-- <i class="flag-icon flag-icon-us h4 mb-0" title="us" id="us"></i> -->
+                                    {{rowData.prices}}
+                                </td>
+                                <td>
+
+                                    {{rowData.time || '-No Data-'}}
+                                </td>
+                                <!-- <td class="text-center">
+                                    {{rowData.bookingDetails.status}}
+                                </td> -->
+                                <td>
+                                    <!-- <div class="small text-muted">Sr</div> -->
+                                    <!-- <strong>{{booking.bookingDetails.serviceTime}}</strong> -->
+                                    <div class="row">
+                                        <i class="fa fa-eye fa-lg m-1 icon-action"
+                                            (click)="isModified ? openModal(template) : rowExpand(rowData,i, 'view_'+ i); mode = 'view'"
+                                            [ngClass]="action === 'view_'+i ? 'active' : ''"></i>
+                                        <i class="fa fa-edit fa-lg m-1 icon-action"
+                                            (click)="isModified ? openModal(template) : rowExpand(rowData,i, 'edit_'+i); mode = 'edit'"
+                                            [ngClass]="action === 'edit_'+i ? 'active' : ''"></i>
+                                        <i class="fa fa-trash fa-lg m-1 icon-action"
+                                            (click)="deleteId = rowData.serviceId; openModal(deleteTemplate)"
+                                           ></i>
+                                        <!-- <i class="fa fa-history fa-lg m-1 icon-action"
+                                            (click)="isModified ? openModal(template) : rowExpand(rowData,i, 'history_'+i); mode = 'history'"
+                                            [ngClass]="action === 'history_'+i ? 'active' : ''"></i> -->
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- </ng-container> -->
+                            <!-- </tbody> -->
+                        </ng-template>
+                        <ng-template pTemplate="rowexpansion" let-rowData>
+                            <tr>
+                                <td [attr.colspan]="5">
+                                        <ng-container *ngTemplateOutlet="
+                                        serviceDetails; context:{rowData: rowData}"></ng-container>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                        </ng-container>
+                    <!-- </table> -->
+                </div>
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+    <!--/.row-->
+</div>
+
+<ng-template #template>
+    <div class="modal-body text-center">
+        <p>Changes are not saved, Do you want to Close?</p>
+        <button type="button" class="btn btn-secondary m-1" (click)="confirm()">Yes</button>
+        <button type="button" class="btn btn-primary m-1" (click)="modalRef.hide()">No</button>
+    </div>
+</ng-template>
+
+<ng-template #deleteTemplate>
+        <div class="modal-body text-center">
+            <p>Doo you want to delete this service?</p>
+            <button type="button" class="btn btn-secondary m-1" (click)="deleteService()">Yes</button>
+            <button type="button" class="btn btn-primary m-1" (click)="modalRef.hide()">No</button>
+        </div>
+    </ng-template>
+
+<ng-template #serviceDetails let-rowData="rowData">
+        <div class="ui-g ui-fluid align-ctr">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Service</strong>
+                            <small>Form</small>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="name">Service Name</label>
+                                <input type="text" (change)="isModified = true"
+                                    [disabled]="mode !== 'edit'"
+                                    [(ngModel)]="service.serviceName" name="serviceName"
+                                    class="form-control" id="name"
+                                    placeholder="Enter Service name">
+                            </div>
+                            <div class="form-group">
+                                <label for="Description">Service Description</label>
+                                <input type="text" (change)="isModified = true"
+                                    [disabled]="mode !== 'edit'"
+                                    [(ngModel)]="service.serviceDesc" name="serviceDesc"
+                                    class="form-control" id="Description"
+                                    placeholder="Description">
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="street">Time</label>
+                                <input type="text" class="form-control" id="street"
+                                    placeholder="Service time">
+                            </div> -->
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="Time">Time</label>
+                                    <input type="text" (change)="isModified = true"
+                                        [disabled]="mode !== 'edit'" [(ngModel)]="service.time"
+                                        name="time" class="form-control" id="Time"
+                                        placeholder="Time">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="Price">Price</label>
+                                    <input type="text" (change)="isModified = true"
+                                        [disabled]="mode !== 'edit'"
+                                        [(ngModel)]="service.prices" name="prices"
+                                        class="form-control" id="price" placeholder="price">
+                                </div>
+                            </div>
+                            <!--/.row-->
+                            <div class="form-group" *ngIf="mode === 'edit'">
+                                <label for="country">Image</label>
+                                <input type="file" (change)="isModified = true;  uploadFile($event)"
+                                    [(ngModel)]="service.image" name="Image" id="Image"
+                                    placeholder="Image name"> <br>
+                                    <label *ngIf="imageUploading">Uploading...</label>
+                            </div>
+
+                        </div>
+                        <div class="card-footer" *ngIf="mode === 'edit'">
+                            <button (click)="submitData()" type="submit" [disabled]="imageUploading"
+                                class="btn btn-sm btn-primary pull-right ml-1"><i
+                                    class="fa fa-dot-circle-o"></i>
+                                Submit</button>
+                            <button (click)="resetData(rowData)" type="reset"
+                                class="btn btn-sm btn-danger pull-right"><i
+                                    class="fa fa-ban"></i>
+                                Reset</button>
+                        </div>
+                        <div class="card-footer" *ngIf="mode === 'delete'">
+                            <button (click)="deleteData(rowData)" type="submit"
+                                class="btn btn-sm btn-primary pull-right"><i
+                                    class="fa fa-dot-circle-o"></i>
+                                Delete</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+</ng-template>
+
+<p-overlayPanel #op1>
+        <img [src]="imagePath" alt="Galleria 1" />
+    </p-overlayPanel>

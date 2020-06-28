@@ -1,0 +1,42 @@
+.bg-clr {
+  background-color: white;
+}
+
+:host ::ng-deep .ui-calendar .ui-datepicker {
+  background-color: white;
+}
+
+:host ::ng-deep .ui-calendar {
+  display: unset;
+}
+
+:host ::ng-deep .popup_box .nice-select.open .list {
+  width: 100%;
+}
+
+*:focus {
+  outline: none;
+}
+.ng-touched.ng-invalid:not(form) {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.boxed-btn3.invalid {
+  background-color: #94888b;
+  border-color: #94888b;
+  cursor: default;
+}
+
+.go-back {
+  font-style: italic;
+  border-bottom: 1px solid #a94442;
+}
+
+.go-back:hover {
+  cursor: pointer;
+}
+
+.error-con {
+  margin-bottom: 3%;
+  font-size: medium;
+}

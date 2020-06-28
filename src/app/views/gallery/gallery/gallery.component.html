@@ -1,0 +1,38 @@
+<div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="row remove-margin card-header">
+              <div class="col-6">
+            Gallery
+              </div>
+            <div class="col-6">
+                <button *ngIf="!isNew" type="submit"  [disabled] = "imageUploading" (click)="addGallery()" class="btn btn-sm btn-primary pull-right ml-1"><i
+                    class="fa fa-plus"></i>
+                    Save</button>
+                    <input type="file"  (change)="uploadFile($event)" class="pull-right ml-1"
+                    [(ngModel)]="productImage" name="Image" id="Image"
+                    placeholder="Image name">
+                    <br>
+                     <label *ngIf="imageUploading">Uploading...</label>
+
+              <!-- <button *ngIf="isNew" type="submit" class="btn btn-sm btn-danger pull-right ml-1"><i
+                  class="fa fa-close"></i>
+                Close</button> -->
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="gallery-image">
+                <div class="img-box" *ngFor="let gallery of galleryList">
+                  <img [attr.src]="gallery.imgfilepath" alt="" />
+                  <div class="transparent-box">
+                    <div class="caption">
+                      <p>Library</p>
+                      <p class="opacity-low">Architect Design</p>
+                    </div>
+                  </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

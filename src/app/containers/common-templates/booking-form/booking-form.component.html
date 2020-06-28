@@ -1,0 +1,92 @@
+<form>
+  <div class="popup_box ">
+    <div class="popup_inner">
+      <h3>Make an Appointment</h3>
+      <div *ngIf="availableSlots.length <= 0">
+        <form #bookingForm="ngForm">
+          <div class="row">
+            <!-- <div class="col-xl-6 col-md-6"> -->
+            <!-- <input id="datepicker" #datepicker placeholder="Date" /> -->
+            <!-- <p-calendar
+                [(ngModel)]="dateValue"
+                name="datepk"
+                inputStyleClass="bg-clr"
+              ></p-calendar> -->
+            <!-- <div class="col-xs-12 col-12 col-md-4 form-group"> -->
+            <!-- <input type="text" name="date" placeholder="Datepicker" [(ngModel)]="booking.appointmentTime"
+                class="form-control" bsDatepicker [bsConfig]="{ isAnimated: true, containerClass: 'theme-default' }" /> -->
+            <!-- </div> -->
+            <!-- </div> -->
+            <div class="col-xl-6 col-md-6">
+              <!-- <input id="timepicker" placeholder="time" /> -->
+              <!-- <p-calendar [(ngModel)]="booking.time" name="time" [showTime]="true" name="timepicker" hourFormat="12"
+                placeholder="Time"></p-calendar> -->
+
+              <p-calendar placeholder="Time" [(ngModel)]="booking.appointmentTime" name="time" [minDate]="minimumDate">
+              </p-calendar>
+              <!-- <timepicker
+                [(ngModel)]="mytime"
+                name="timepicker"
+                [showSpinners]="false"
+              ></timepicker> -->
+            </div>
+            <div class="col-xl-6 col-md-6">
+              <!-- <select nice-select name="service" #service required (change)="setService(orderServiceVos)"
+                [(ngModel)]="orderServiceVos" [value]="orderServiceVos" [attr.data-value]="orderServiceVos"
+                placeholder="Choose services">
+                <option value="" disabled selected>Select your service</option>
+                <option *ngFor="let data of services" [attr.value]="data.serviceId">{{data.serviceName}}</option>
+              </select>   -->
+             
+            <p-multiSelect [styleClass]="'p-custom-multiselect'" [filter]="false" [options]="services" 
+            [(ngModel)]="booking.orderServiceVos" optionLabel="serviceName"></p-multiSelect>
+            </div>
+            <div class="col-xl-6 col-md-6">
+              <select nice-select name="barber" #barber required [(ngModel)]="booking.empId" [value]="booking.empId"
+                [attr.data-value]="booking.empId">
+                <option value="" disabled selected>Choose Barber</option>
+                <option *ngFor="let data of userList" [attr.value]="data.empId">{{data.name}}</option>
+              </select>
+              <!-- <select class="form-select wide" id="default-select" class="">
+                <option data-display="Choose Barbers">Choose Barbers</option>
+                <option value="1">Zaki</option>
+                <option value="2">Ronky</option>
+                <option value="3">kalu</option>
+              </select> -->
+            </div>
+            <div class="col-xl-6 col-md-6">
+              <input type="text" name="name" [(ngModel)]="booking.name" #name required placeholder="Your name" />
+            </div>
+            <div class="col-xl-6 col-md-6">
+              <input type="text" (keydown)="phonenumber($event.key)" #phone required name="phone"
+                [(ngModel)]="booking.phone" placeholder="Phone no" />
+            </div>
+            <div class="col-xl-6 col-md-6">
+              <input type="email" name="emailid" [(ngModel)]="booking.emailid" #email required email
+                placeholder="Your Email id" />
+            </div>
+            <div class="col-xl-12">
+              <button type="submit" class="boxed-btn3" [ngClass]="{invalid: !bookingForm.form.valid}"
+                (click)="submitForm()">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="availableSlots.length > 0">
+        <div class="error-con">
+          Sorry! This service or user is not posible at this time. please select any one of following slots or
+          <span class="go-back" (click)="resetService()">GO BACK</span> to change the user
+        </div>
+        <div *ngFor="let slot of availableSlots">
+          <input type="radio" name="slots" [(ngModel)]="booking.appointmentTime" [value]="slot.availableTime">
+          {{slot.availableTime}}
+        </div>
+
+        <div class="col-xl-12">
+          <button type="submit" class="boxed-btn3" (click)="submitForm()">Submit</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</form>

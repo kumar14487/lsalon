@@ -1,0 +1,49 @@
+// If you want to override variables do it here
+@import "variables";
+
+// Import styles
+@import "~@coreui/coreui/scss/coreui";
+
+// If you want to add something do it here
+@import "custom";
+
+@import "../assets/style1/css/themify-icons.css";
+@import "../assets/style1/css/nice-select";
+
+// .ui-table .ui-table-thead > tr > th,
+// .ui-table .ui-table-tbody > tr > td,
+// .ui-table .ui-table-tfoot > tr > td {
+//   padding: 0.75rem;
+// }
+
+.ui-table .ui-table-thead > tr > th,
+.ui-table .ui-table-tbody > tr > td,
+.ui-table .ui-table-tfoot > tr > td {
+  border: none !important;
+  padding: 0.75rem !important;
+  border-top: 1px solid #dee2e6 !important;
+  vertical-align: top;
+  background-color: #fff !important;
+}
+
+.ui-table .ui-table-thead > tr > th {
+  color: #495057 !important;
+  background-color: #e9ecef !important;
+  border-color: #dee2e6 !important;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #c8ced3;
+  color: #5c6873;
+  background-color: #e4e7ea;
+  border-color: #c8ced3;
+}
+
+.mfp-container:before {
+  // vertical-align: top;
+}
+
+body .ui-datepicker {
+  z-index: 1021 !important;
+}

@@ -1,0 +1,137 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          Booking Details
+        </div>
+        <div class="card-body">
+
+          <p-table [value]="bookings" dataKey="orderserviceid" rowExpandMode="single" [expandedRowKeys]="expandedRows"
+            tableStyleClass="table table-responsive-sm table-hover table-outline mb-0">
+            <ng-template pTemplate="header">
+              <tr style="height: auto;">
+                <th class="text-center"><i class="icon-people"></i></th>
+                <th>Name</th>
+                <th class="text-center">Phone</th>
+                <th>Booking Time</th>
+                <th class="text-center">Status</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-i="rowIndex">
+              <tr>
+                <td class="table-td text-center">
+                  <div class="avatar">
+                    <img [src]="rowData.imageUrl || 'assets/img/avatars/'+(i < 8 ? i+1: 8)+'.jpg'" class="img-avatar"
+                      alt="img">
+                    <span class="avatar-status badge-success"></span>
+                  </div>
+                </td>
+                <td class="table-td">
+                  <div>{{rowData.name}}</div>
+                  <div class="small text-muted">
+                    <span>New</span> | Experience:{{ rowData.experience}}
+                  </div>
+                </td>
+                <td class="table-td text-center">
+                  {{rowData.phone}}
+                </td>
+                <td class="table-td">
+                  {{rowData.appointmentTime}}
+                </td>
+                <td class="table-td text-center">
+                  {{rowData.status}}
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="rowexpansion" let-rowData>
+              <tr>
+                <td [attr.colspan]="6">
+                  <div class="ui-g ui-fluid align-ctr">
+                    <div class="col-sm-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <strong>Employee</strong>
+                          <small>Form</small>
+                        </div>
+                        <div class="card-body">
+                          <div class="form-group">
+                            <label for="company">Name</label>
+                            <input type="text" [disabled]="mode !== 'edit'" [(ngModel)]="user.name" name="name"
+                              class="form-control" id="name" placeholder="Enter your name">
+                          </div>
+                          <div class="form-group">
+                            <label for="vat">Phone</label>
+                            <input type="text" [disabled]="mode !== 'edit'" [(ngModel)]="user.phone" name="phone"
+                              class="form-control" id="phone" placeholder="Phone">
+                          </div>
+                          <div class="form-group">
+                            <label for="vat">Email</label>
+                            <input type="text" [disabled]="mode !== 'edit'" [(ngModel)]="user.emailId" name="email"
+                              class="form-control" id="phone" placeholder="Email">
+                          </div>
+                          <div class="row">
+                            <div class="form-group col-sm-8">
+                              <label for="vat">Gender</label>
+                              <input type="text" [disabled]="mode !== 'edit'" [(ngModel)]="user.gender" name="Gender"
+                                class="form-control" id="phone" placeholder="Gender">
+                            </div>
+                            <div class="form-group col-sm-4">
+                              <label for="vat">Experience</label>
+                              <input type="text" [disabled]="mode !== 'edit'" [(ngModel)]="user.experience"
+                                name="experience" class="form-control" id="phone" placeholder="Experience">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="street">Street</label>
+                            <input type="text" [disabled]="mode !== 'edit'" [(ngModel)]="user.address.street"
+                              class="form-control" id="street" placeholder="Enter street name">
+                          </div>
+                          <div class="row">
+                            <div class="form-group col-sm-8">
+                              <label for="city">City</label>
+                              <input type="text" [disabled]="mode !== 'edit'" [(ngModel)]="user.address.city"
+                                class="form-control" id="city" placeholder="Enter your city">
+                            </div>
+                            <div class="form-group col-sm-4">
+                              <label for="postal-code">Postal Code</label>
+                              <input type="text" [disabled]="mode !== 'edit'" [(ngModel)]="user.address.pincode"
+                                class="form-control" id="postal-code" placeholder="Postal Code">
+                            </div>
+                          </div>
+                          <!--/.row-->
+                          <div class="form-group">
+                            <label for="country">Country</label>
+                            <input type="text" [disabled]="mode !== 'edit'" [(ngModel)]="user.address.country"
+                              class="form-control" id="country" placeholder="Country name">
+                          </div>
+                        </div>
+                        <div class="card-footer" *ngIf="mode === 'edit'">
+                          <button (click)="submitData()" type="submit" class="btn btn-sm btn-primary pull-right ml-1"><i
+                              class="fa fa-dot-circle-o"></i>
+                            Submit</button>
+                          <button (click)="resetData(rowData)" type="reset" class="btn btn-sm btn-danger pull-right"><i
+                              class="fa fa-ban"></i>
+                            Reset</button>
+                        </div>
+                        <div class="card-footer" *ngIf="mode === 'delete'">
+                          <button (click)="deleteData(rowData)" type="submit"
+                            class="btn btn-sm btn-primary pull-right"><i class="fa fa-dot-circle-o"></i>
+                            Delete</button>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+          <!-- </table> -->
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>

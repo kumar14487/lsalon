@@ -1,0 +1,185 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="row remove-margin card-header ">
+                    <div class="col-6">
+                        Product Details
+                    </div>
+                    <div class="col-6">
+                        <button *ngIf="!isNew" (click)="addNew()" type="submit" class="btn btn-sm btn-primary pull-right ml-1"><i
+                            class="fa fa-plus"></i>
+                          Add</button>
+                        <button *ngIf="isNew" (click)="addNew()" type="submit" class="btn btn-sm btn-danger pull-right ml-1"><i
+                            class="fa fa-close"></i>
+                          Close</button>
+                      </div>
+                </div>
+                <div class="card-body">
+                        <ng-container *ngIf="!isNew; else serviceDetails">
+                    <p-table [value]="careers" dataKey="id" rowExpandMode="single"
+                        [expandedRowKeys]="expandedRows"
+                        tableStyleClass="table table-responsive-sm table-hover table-outline mb-0">
+                        <!-- <table class="table table-responsive-sm table-hover table-outline mb-0"> -->
+                        <ng-template pTemplate="header">
+                            <!-- <thead class="thead-light"> -->
+                            <tr style="height: auto;">
+                                <!-- <th class="text-center"><i class="icon-people"></i></th> -->
+                                <th  class="text-center">Skills</th>
+                                <th  class="text-center">Salary</th>
+                                <th>Worklocation</th>
+                                <th  class="text-center">Worktime</th>
+                                <th class="text-center">Hiredate</th>
+                                <th>Actions</th>
+                            </tr>
+                            <!-- </thead> -->
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-i="rowIndex">
+                            <!-- <tbody> -->
+                            <!-- <ng-container *ngFor="let booking of bookingList; let index = index"> -->
+                            <tr>
+                                <td class="table-td">
+                                    <div>{{rowData.skills}}</div>
+                                    <div class="small text-muted">
+                                        Experiance:{{ rowData.experiance}}
+                                    </div>
+                                </td>
+                                <td  class="table-td text-center">
+                                    {{rowData.salary}}
+                                </td>
+                                <td class="table-td">
+                                    {{rowData.worklocation}}
+                                </td>
+                                <td class="table-td text-center">
+                                    {{rowData.worktime}}
+                                </td>
+                                <td  class="table-td text-center">
+                                    {{rowData.hiredate}}
+                                </td>
+                                <td class="table-td">
+                                    <div class="row">
+                                        <i class="fa fa-eye fa-lg m-1 icon-action"
+                                            (click)="isModified ? openModal(template) : rowExpand(rowData,i, 'view_'+ i); mode = 'view'"
+                                            [ngClass]="action === 'view_'+i ? 'active' : ''"></i>
+                                        <i class="fa fa-edit fa-lg m-1 icon-action"
+                                            (click)="isModified ? openModal(template) : rowExpand(rowData,i, 'edit_'+i); mode = 'edit'"
+                                            [ngClass]="action === 'edit_'+i ? 'active' : ''"></i>
+                                        <i class="fa fa-trash fa-lg m-1 icon-action"
+                                            (click)="deleteId = rowData.id; openModal(deleteTemplate)"
+                                           ></i>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="rowexpansion" let-rowData>
+                            <tr>
+                                <td [attr.colspan]="6">
+                                        <ng-container *ngTemplateOutlet="
+                                        serviceDetails; context:{rowData: rowData}"></ng-container>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                        </ng-container>
+                    <!-- </table> -->
+                </div>
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+    <!--/.row-->
+</div>
+
+<ng-template #template>
+    <div class="modal-body text-center">
+        <p>Changes are not saved, Do you want to Close?</p>
+        <button type="button" class="btn btn-secondary m-1" (click)="confirm()">Yes</button>
+        <button type="button" class="btn btn-primary m-1" (click)="modalRef.hide()">No</button>
+    </div>
+</ng-template>
+
+<ng-template #deleteTemplate>
+        <div class="modal-body text-center">
+            <p>Doo you want to delete this career?</p>
+            <button type="button" class="btn btn-secondary m-1" (click)="deleteCareer()">Yes</button>
+            <button type="button" class="btn btn-primary m-1" (click)="modalRef.hide()">No</button>
+        </div>
+    </ng-template>
+
+<ng-template #serviceDetails let-rowData="rowData">
+        <div class="ui-g ui-fluid align-ctr">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Career</strong>
+                            <small>Form</small>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="skills">Skills</label>
+                                <input type="text" (change)="isModified = true"
+                                    [disabled]="mode !== 'edit'"
+                                    [(ngModel)]="career.skills" name="skills"
+                                    class="form-control" id="skills"
+                                    placeholder="Enter required skills">
+                            </div>
+                            <div class="form-group">
+                                <label for="salary">Salary</label>
+                                <input type="text" (change)="isModified = true"
+                                    [disabled]="mode !== 'edit'"
+                                    [(ngModel)]="career.salary" name="desc"
+                                    class="form-control" id="salary"
+                                    placeholder="Salary">
+                            </div>
+                                <div class="form-group">
+                                    <label for="experiance">Experiance</label>
+                                    <input type="number" (change)="isModified = true"
+                                        [disabled]="mode !== 'edit'"
+                                        [(ngModel)]="career.experiance" name="experiance"
+                                        class="form-control" id="experiance" placeholder="Experiance">
+                                </div>
+                                <div class="form-group">
+                                    <label for="experiance">Worktime</label>
+                                    <input type="text" (change)="isModified = true"
+                                        [disabled]="mode !== 'edit'"
+                                        [(ngModel)]="career.worktime" name="worktime"
+                                        class="form-control" id="worktime" placeholder="Worktime">
+                                </div>
+                                <div class="form-group">
+                                    <label for="hiredate">Hiredate</label>
+                                    <input type="text" (change)="isModified = true"
+                                        [disabled]="mode !== 'edit'"
+                                        [(ngModel)]="career.hiredate" name="hiredate"
+                                        class="form-control" id="hiredate" placeholder="Hiredate">
+                                </div>
+                            <!--/.row-->
+                            <div class="form-group">
+                                <label for="worklocation">Worklocation</label>
+                                <input type="text" (change)="isModified = true"
+                                [disabled]="mode !== 'edit'" class="form-control"
+                                    [(ngModel)]="career.worklocation" name="worklocation" id="worklocation"
+                                    placeholder="Worklocation">
+                            </div>
+
+                        </div>
+                        <div class="card-footer" *ngIf="mode === 'edit'">
+                            <button (click)="submitData()" type="submit" [disabled]="imageUploading"
+                                class="btn btn-sm btn-primary pull-right ml-1"><i
+                                    class="fa fa-dot-circle-o"></i>
+                                Submit</button>
+                            <button (click)="resetData(rowData)" type="reset"
+                                class="btn btn-sm btn-danger pull-right"><i
+                                    class="fa fa-ban"></i>
+                                Reset</button>
+                        </div>
+                        <div class="card-footer" *ngIf="mode === 'delete'">
+                            <button (click)="deleteData(rowData)" type="submit"
+                                class="btn btn-sm btn-primary pull-right"><i
+                                    class="fa fa-dot-circle-o"></i>
+                                Delete</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+</ng-template>
