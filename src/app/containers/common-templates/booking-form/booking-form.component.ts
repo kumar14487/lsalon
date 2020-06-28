@@ -41,6 +41,7 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
     experience: 1
   };
 
+
   availableSlots = [];
   orderServiceVos = [];
   selectedValue = '';
@@ -48,28 +49,14 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
   services: SelectItem[];
   userList: any = [];
   minimumDate = new Date();
+  serviceList = [];
+  activebtn;
+  slotList: any;
 
   constructor(private httpService: HttpService, private toastr: ToastrService, private dataService: DataService) {
-    //SelectItem API with label-value pairs
-    this.cities1 = [
-      { label: 'New York', value: { id: 1, name: 'New York', code: 'NY' } },
-      { label: 'Rome', value: { id: 2, name: 'Rome', code: 'RM' } },
-      { label: 'London', value: { id: 3, name: 'London', code: 'LDN' } },
-      { label: 'Istanbul', value: { id: 4, name: 'Istanbul', code: 'IST' } },
-      { label: 'Paris', value: { id: 5, name: 'Paris', code: 'PRS' } }
-    ];
-
-    //An array of cities
-    this.cities2 = [
-      { label: 'New York', value: 'NY' },
-      { label: 'Rome', value: 'RM' },
-      { label: 'London', value: 'LDN' },
-      { label: 'Istanbul', value: 'IST' },
-      { label: 'Paris', value: 'PRS' }
-    ];
+   
   }
-  activebtn;
-  slotList=['4.34-4.40','4.34-4.40','4.34-4.40','4.34-4.40','4.34-4.40','4.34-4.40','4.34-4.40','4.34-4.40','4.34-4.40']
+ 
 
   ngOnInit() {
     this.httpService.getServices().subscribe((data: SelectItem[]) => {
@@ -113,6 +100,10 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
     // (<any>$(this.drpDown.nativeElement)).niceSelect();
   }
 
+  getSelectedSlot(slot){
+    this.booking['slotId'] = slot.id;
+  }
+
   phonenumber(inputtxt) {
     // var phoneno = /^\d{10}$/;
     var phoneno = /^\d+$/;
@@ -128,11 +119,14 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
 
   setService(id, event) {
     // return;
-    let serviceList = [];
-    for(let service of event.value){
-      serviceList.push({serviceId: service.serviceId})
+    console.log(event);
+    let list = Array();
+    for(let service of event.value){    
+      list.push({serviceId: service.serviceId})
+      this.serviceList = list;
     }
-    this.httpService.getUserDetails({serviceLists :serviceList}).subscribe(data => {
+    console.log(this.serviceList);
+    this.httpService.getUserDetails({serviceLists :this.serviceList}).subscribe(data => {
       this.userList = data;
     });
     // this.services.forEach(element => {
@@ -147,8 +141,17 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
     // });
   }
 
+  getAvailableSlots()
+  {
+  this.httpService.getAvailableSlots(this.booking.empId,this.booking.appointmentTime).subscribe(data => {
+     this.slotList= data;
+    });
+
+  }
+
   submitForm() {
-    debugger
+    console.log(this.serviceList);
+    this.booking['orderServiceVos'] = this.serviceList;
     // this.booking.appointmentTime = '' + this.booking.appointmentTime;
     if (typeof this.booking.appointmentTime === 'string')
       this.booking.appointmentTime = new Date(this.booking.appointmentTime);
@@ -157,7 +160,7 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
     this.booking.appointmentTime =
       this.booking.appointmentTime.getFullYear() + "-" +
       ("0" + (this.booking.appointmentTime.getMonth() + 1)).slice(-2) + "-" +
-      ("0" + this.booking.appointmentTime.getDate()).slice(-2) ;
+      ("0" + this.booking.appointmentTime.getDate()).slice(-2);
       // ("0" + this.booking.appointmentTime.getHours()).slice(-2) + ":" +
       // ("0" + this.booking.appointmentTime.getMinutes()).slice(-2) + ":" +
       // ("0" + this.booking.appointmentTime.getSeconds()).slice(-2);

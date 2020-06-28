@@ -21,6 +21,7 @@ export const environment = {
   getCustomerPageData: '',
   saveBooking: '/bookAppoitment',
   getServiceUSer: '/multipleServices',
+  getAvailableSlots: '/availableslots',
 
   // user url
 

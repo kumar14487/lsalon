@@ -591,7 +591,11 @@ export class HttpService {
   }
 
   getUserDetails(serviceList){
-    return this.http.post(this.URL + environment.getServiceUSer, serviceList)
+    return this.http.post(this.URL + environment.getServiceUSer, serviceList);
+  }
+
+  getAvailableSlots(empId,appoitmentDate){
+    return this.http.get(this.URL + environment.getAvailableSlots+'/'+empId+'/'+appoitmentDate);
   }
 
   addUser(data) {
