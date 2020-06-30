@@ -38,9 +38,9 @@
                 <option *ngFor="let data of services" [attr.value]="data.serviceId">{{data.serviceName}}</option>
               </select>   -->
              
-            <p-multiSelect [styleClass]="'p-custom-multiselect'" [filter]="false" [options]="services" 
-            [(ngModel)]="orderServiceVos" optionLabel="serviceName"
-             (onChange)="setService(orderServiceVos, $event)"></p-multiSelect>
+            <p-multiSelect [styleClass]="'p-custom-multiselect'" [filter]="true" [options]="services" 
+              [(ngModel)]="orderServiceVos1" optionLabel="serviceName" defaultLabel="Choose Service"
+             (onChange)="setService(orderServiceVos1, $event)"></p-multiSelect>
             </div>
 
 
@@ -64,9 +64,9 @@
               <input type="text" name="name" [(ngModel)]="booking.name" #name required placeholder="Your name" />
             </div>
             
-            <div class="col-xl-12 col-md-12" style="font-size: 10px;">
+            <div class="col-xl-12 col-md-12" style="font-size: 10px;margin-bottom: 25px;" *ngIf="slotList.length > 0">
               <button class="btn slot-btn" 
-               *ngFor="let slot of slotList; let i = index" [ngClass]="activebtn === i ? 'active-btn' : default-colour" (click)="getSelectedSlot(slot);activebtn=i">{{slot.slotOpenTime}}-{{slot.slotCloseTime}}</button>
+               *ngFor="let slot of slotList; let i = index" [ngClass]="activebtn === i ? 'active-btn' : 'default-colour'" (click)="getSelectedSlot(slot);activebtn=i">{{slot.slotOpenTime}}-{{slot.slotCloseTime}}</button>
             </div>
 
             <div class="col-xl-6 col-md-6">

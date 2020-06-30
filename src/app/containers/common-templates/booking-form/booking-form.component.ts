@@ -43,7 +43,7 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
 
 
   availableSlots = [];
-  orderServiceVos = [];
+  orderServiceVos1: string[] = [];
   selectedValue = '';
 
   services: SelectItem[];
@@ -51,7 +51,7 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
   minimumDate = new Date();
   serviceList = [];
   activebtn;
-  slotList: any;
+  slotList:any = [];
 
   constructor(private httpService: HttpService, private toastr: ToastrService, private dataService: DataService) {
    
@@ -59,11 +59,7 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
  
 
   ngOnInit() {
-    this.httpService.getServices().subscribe((data: SelectItem[]) => {
-      this.services = data;
-      console.log(this.services)
-
-    });
+    this.getServiceList();
     // this.httpService.getUser().subscribe(data => {
     //   this.userList = data['adminList'];
     // });
@@ -75,9 +71,14 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
 
   }
 
+  getServiceList(){
+    this.httpService.getServices().subscribe((data: SelectItem[]) => {
+      this.services = data;
+    });
+  }
+
   resetForm() {
-    return;
-    this.orderServiceVos = [];
+    this.orderServiceVos1 = [];
     this.availableSlots = [];
     this.booking = {
       appointmentTime: null,
@@ -89,6 +90,8 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
       roleid: 3,
       experience: 1
     };
+    this.getServiceList();
+    this.slotList=[];
   }
   resetService() {
     this.availableSlots = [];
@@ -168,11 +171,11 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
     this.httpService.saveBooking(this.booking).subscribe(data => {
       if (!data['availableSlotsList'] || (data['availableSlotsList'] && data['availableSlotsList'].length <= 0)) {
         $.magnificPopup.close();
-        this.resetForm();
         this.toastr.success('Appointment has been confiremed.');
       } else {
         this.availableSlots = data['availableSlotsList'];
       }
+      this.resetForm();
     });
   }
 
