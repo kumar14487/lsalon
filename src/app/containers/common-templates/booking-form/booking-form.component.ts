@@ -39,9 +39,10 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
     emailid: null,
     roleid: 3,
     experience: 1
+    
   };
 
-
+  hasSlots: boolean  = false;
   availableSlots = [];
   orderServiceVos1: string[] = [];
   selectedValue = '';
@@ -92,6 +93,8 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
     };
     this.getServiceList();
     this.slotList=[];
+    this.hasSlots = false;
+    this.activebtn=-1;
   }
   resetService() {
     this.availableSlots = [];
@@ -105,6 +108,7 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
 
   getSelectedSlot(slot){
     this.booking['slotId'] = slot.id;
+    this.activebtn = !this.activebtn;
   }
 
   phonenumber(inputtxt) {
@@ -146,8 +150,17 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
 
   getAvailableSlots()
   {
+    if (typeof this.booking.appointmentTime === 'string')
+      this.booking.appointmentTime = new Date(this.booking.appointmentTime);
+
+      this.booking.appointmentTime =
+      this.booking.appointmentTime.getFullYear() + "-" +
+      ("0" + (this.booking.appointmentTime.getMonth() + 1)).slice(-2) + "-" +
+      ("0" + this.booking.appointmentTime.getDate()).slice(-2);
+
   this.httpService.getAvailableSlots(this.booking.empId,this.booking.appointmentTime).subscribe(data => {
      this.slotList= data;
+     this.hasSlots = true;
     });
 
   }
@@ -168,6 +181,9 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
       // ("0" + this.booking.appointmentTime.getMinutes()).slice(-2) + ":" +
       // ("0" + this.booking.appointmentTime.getSeconds()).slice(-2);
 
+      
+   if(this.hasSlots && this.booking['slotId'] )
+   {
     this.httpService.saveBooking(this.booking).subscribe(data => {
       if (!data['availableSlotsList'] || (data['availableSlotsList'] && data['availableSlotsList'].length <= 0)) {
         $.magnificPopup.close();
@@ -177,6 +193,9 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
       }
       this.resetForm();
     });
+   }else{
+    this.toastr.error("Please select your slot time");
+   }
   }
 
 
