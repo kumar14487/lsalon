@@ -42,6 +42,7 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
     
   };
 
+  mobNumberPattern = "^((\\+91-?)|0)?[0-9]{11}$";
   hasSlots: boolean  = false;
   availableSlots = [];
   orderServiceVos1: string[] = [];
@@ -116,7 +117,7 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
     var phoneno = /^\d+$/;
     console.log(inputtxt);
     // let inText = parseInt(inputtxt);
-    if (inputtxt && inputtxt.match(phoneno) && (this.booking.phone === null || this.booking.phone.length < 10)) {
+    if (inputtxt && inputtxt.match(phoneno) && (this.booking.phone === null || this.booking.phone.length < 11)) {
       return true;
     }
     else {
@@ -135,6 +136,7 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
     console.log(this.serviceList);
     this.httpService.getUserDetails({serviceLists :this.serviceList}).subscribe(data => {
       this.userList = data;
+      
     });
     // this.services.forEach(element => {
       // if (element.serviceId == id) {

@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class OthersComponent implements OnInit {
 
+  minimumDate = new Date();
   timingDetails;
   tDetail = {};
   defaultStr: any = '';

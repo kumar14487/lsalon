@@ -152,7 +152,11 @@ export class LandingpageComponent implements OnInit, AfterViewInit {
   });
   
   this.httpService.defaultDetailsStr().subscribe(data => {
-    const defaultStr = "Mon-Fri (9.00 AM - 8.00 PM) <br> Sat(8.00 AM - 8.00 PM) <br> Sunday Closed"; // data[0].openclosetime;
+    const shopopentime = data[0].opentime;
+    const shopclosetime = data[0].closetime;
+    const defaultStr = "Mon-Fri ("+ shopopentime +" - "+ shopclosetime+ ") <br> Sat(8.00 AM - 8.00 PM) <br> Sunday Closed"; // data[0].openclosetime;
+   
+    //const defaultStr = "Mon-Fri (9.00 AM - 8.00 PM) <br> Sat(8.00 AM - 8.00 PM) <br> Sunday Closed"; // data[0].openclosetime;
     this.defaultTimeStr = this._sanitizer.bypassSecurityTrustHtml(defaultStr);
 
     })

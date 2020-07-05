@@ -73,9 +73,18 @@
 
 
             <div class="col-xl-6 col-md-6">
-              <input type="text" (keydown)="phonenumber($event.key)" #phone required name="phone"
-                [(ngModel)]="booking.phone" placeholder="Phone no" />
+              <!-- <input type="text" (keydown)="phonenumber($event.key)" #phone required name="phone"
+                [(ngModel)]="booking.phone" placeholder="Phone no" /> -->
+
+            <input name="mobileNumber" [(ngModel)]="booking.phone" [pattern]="mobNumberPattern" #mobNumber="ngModel" required 
+            placeholder="Phone no">  
+            <div *ngIf="mobNumber.errors" [ngClass] = "phoneNumberError">  
+              Invalid Mobile Number   
             </div>
+            </div>
+
+            
+
             <div class="col-xl-6 col-md-6">
               <input type="email" name="emailid" [(ngModel)]="booking.emailid" #email required email
                 placeholder="Your Email id" />

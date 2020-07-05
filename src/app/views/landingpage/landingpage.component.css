@@ -31,8 +31,9 @@
   border-bottom: 1px solid #bc9321;
 }
 .about-us {
-  background-color: #3D3D3D;
-  color: #ccc;
+  margin-bottom: 13px;
+  font-family: "Roboto", sans-serif;
+  background-color: transparent;
 }
 
 .about-header{
