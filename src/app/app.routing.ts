@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Import Containers
@@ -10,6 +10,7 @@ import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { LandingpageComponent } from './views/landingpage/landingpage.component';
 import { AuthGuard } from './containers/guards/auth.guard';
+import { ShopOpenCloseTimeComponent } from './views/shop-open-close-time/shop-open-close-time.component';
 
 export const routes: Routes = [
   // {
@@ -96,6 +97,13 @@ export const routes: Routes = [
             m => m.OthersModule
           )
       },
+      
+      {
+        path: 'shop-open-close-time',
+        component: ShopOpenCloseTimeComponent
+       
+      },
+      
       // {
       //   path: 'theme',
       //   loadChildren: () =>

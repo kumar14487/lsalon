@@ -31,9 +31,15 @@ export const navItems: INavData[] = [
     icon: 'icon-picture'
   },
   {
-    name: 'Time Settings',
+    name: 'Open/Close Time',
+    url: '/admin/shop-open-close-time',
+    icon: 'icon-clock'
+    
+  },
+  {
+    name: 'Holiday Time Settings',
     url: '/admin/others',
-    icon: 'icon-people'
+    icon: 'icon-clock'
   },
   {
     name: 'Career',

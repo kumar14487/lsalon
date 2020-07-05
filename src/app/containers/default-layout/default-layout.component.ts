@@ -10,9 +10,7 @@ import { LoginService } from '../services/login.service';
 export class DefaultLayoutComponent {
   public sidebarMinimized = false;
   public navItems = navItems;
-
   constructor(private loginService: LoginService) {
-
   }
 
   toggleMinimize(e) {

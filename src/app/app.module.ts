@@ -1,14 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
+
+
 
 import { AppComponent } from './app.component';
 
@@ -28,7 +32,7 @@ import {
   AppBreadcrumbModule,
   AppHeaderModule,
   AppFooterModule,
-  AppSidebarModule
+  AppSidebarModule,
 } from '@coreui/angular';
 
 // Import routing module
@@ -45,8 +49,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { ProductsComponent } from './views/products/products.component';
 import { OthersComponent } from './views/others/others.component';
-
 import { ModalModule, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ShopOpenCloseTimeComponent } from './views/shop-open-close-time/shop-open-close-time.component';
 
 @NgModule({
   imports: [
@@ -67,6 +71,9 @@ import { ModalModule, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
     FormsModule,
     HttpClientModule,
     CarouselModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule 
+
   ],
   declarations: [
     AppComponent,
@@ -75,7 +82,8 @@ import { ModalModule, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
     P500Component,
     LoginComponent,
     LandingpageComponent,
-    RegisterComponent
+    RegisterComponent,
+    ShopOpenCloseTimeComponent
   ],
   providers: [
     {
