@@ -16,8 +16,13 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
   styleUrls: ['./shop-open-close-time.component.css']
 })
 export class ShopOpenCloseTimeComponent implements OnInit {
+  dayNames = [];
   constructor() { }
   ngOnInit(): void {
+    this.dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  }
+  save(){
+    
   }
 
 }

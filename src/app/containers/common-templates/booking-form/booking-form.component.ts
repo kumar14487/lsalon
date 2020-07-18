@@ -43,6 +43,8 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
   };
 
   mobNumberPattern = "^((\\+91-?)|0)?[0-9]{11}$";
+  Wday: string[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  disabledDays = [0];
   hasSlots: boolean  = false;
   availableSlots = [];
   orderServiceVos1: string[] = [];
@@ -58,7 +60,7 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
   constructor(private httpService: HttpService, private toastr: ToastrService, private dataService: DataService) {
    
   }
- 
+
 
   ngOnInit() {
     this.getServiceList();
@@ -68,7 +70,6 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
 
     // this.services = this.httpService.getMockData().services;
     // this.userList = this.httpService.getMockData().barbers;
-
 
 
   }
@@ -117,7 +118,7 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
     var phoneno = /^\d+$/;
     console.log(inputtxt);
     // let inText = parseInt(inputtxt);
-    if (inputtxt && inputtxt.match(phoneno) && (this.booking.phone === null || this.booking.phone.length < 11)) {
+    if (inputtxt && inputtxt.match(phoneno) && (this.booking.phone === null || this.booking.phone.length < 10)) {
       return true;
     }
     else {
@@ -136,7 +137,6 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
     console.log(this.serviceList);
     this.httpService.getUserDetails({serviceLists :this.serviceList}).subscribe(data => {
       this.userList = data;
-      
     });
     // this.services.forEach(element => {
       // if (element.serviceId == id) {
@@ -168,12 +168,13 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
   }
 
   submitForm() {
-    console.log(this.serviceList);
     this.booking['orderServiceVos'] = this.serviceList;
+
     // this.booking.appointmentTime = '' + this.booking.appointmentTime;
     if (typeof this.booking.appointmentTime === 'string')
       this.booking.appointmentTime = new Date(this.booking.appointmentTime);
 
+      this.booking['day'] = this.Wday[this.booking.appointmentTime.getDay()];
     // var m = new Date(this.booking.appointmentTime);
     this.booking.appointmentTime =
       this.booking.appointmentTime.getFullYear() + "-" +
@@ -182,7 +183,7 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
       // ("0" + this.booking.appointmentTime.getHours()).slice(-2) + ":" +
       // ("0" + this.booking.appointmentTime.getMinutes()).slice(-2) + ":" +
       // ("0" + this.booking.appointmentTime.getSeconds()).slice(-2);
-
+      console.log(this.booking);
       
    if(this.hasSlots && this.booking['slotId'] )
    {
