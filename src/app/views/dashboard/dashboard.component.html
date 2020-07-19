@@ -16,6 +16,7 @@
                 <th class="text-center">Phone</th>
                 <th>Booking Time</th>
                 <th class="text-center">Status</th>
+                <th>Action</th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-i="rowIndex">
@@ -41,6 +42,10 @@
                 </td>
                 <td class="table-td text-center">
                   {{rowData.status}}
+                </td>
+                <td>
+                  <button class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></button> &nbsp;&nbsp;
+                  <button class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></button>
                 </td>
               </tr>
             </ng-template>
