@@ -154,13 +154,13 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
   {
     if (typeof this.booking.appointmentTime === 'string')
       this.booking.appointmentTime = new Date(this.booking.appointmentTime);
-
+      this.booking['day'] = this.Wday[this.booking.appointmentTime.getDay()];
       this.booking.appointmentTime =
       this.booking.appointmentTime.getFullYear() + "-" +
       ("0" + (this.booking.appointmentTime.getMonth() + 1)).slice(-2) + "-" +
       ("0" + this.booking.appointmentTime.getDate()).slice(-2);
 
-  this.httpService.getAvailableSlots(this.booking.empId,this.booking.appointmentTime).subscribe(data => {
+  this.httpService.getAvailableSlots(this.booking).subscribe(data => {
      this.slotList= data;
      this.hasSlots = true;
     });
@@ -183,7 +183,6 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
       // ("0" + this.booking.appointmentTime.getHours()).slice(-2) + ":" +
       // ("0" + this.booking.appointmentTime.getMinutes()).slice(-2) + ":" +
       // ("0" + this.booking.appointmentTime.getSeconds()).slice(-2);
-      console.log(this.booking);
       
    if(this.hasSlots && this.booking['slotId'] )
    {

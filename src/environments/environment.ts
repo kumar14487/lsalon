@@ -22,6 +22,8 @@ export const environment = {
   saveBooking: '/bookAppoitment',
   getServiceUSer: '/multipleServices',
   getAvailableSlots: '/availableslots',
+  enableSunday:'/shopopenclosetime/enable',
+  updateAppointment:'/updateAppointment',
 
   // user url
 

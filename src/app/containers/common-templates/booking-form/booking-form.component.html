@@ -49,7 +49,7 @@
             <div class="col-xl-6 col-md-6">
               <select nice-select name="barber" #barber required [(ngModel)]="booking.empId" [value]="booking.empId"
                 [attr.data-value]="booking.empId" (change)="getAvailableSlots()" >
-                <option value="" disabled selected>Choose Barber</option>
+                <option value="" disabled selected>Choose Stylisher</option>
                 <option *ngFor="let data of userList" [attr.value]="data.empId">{{data.name}}</option>
               </select>
               <!-- <select class="form-select wide" id="default-select" class="">

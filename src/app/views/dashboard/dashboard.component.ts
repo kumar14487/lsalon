@@ -5,6 +5,7 @@ import { HttpService } from '../../containers/services/http.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { DataService } from '../../containers/services/data.service';
 import { ToastrService } from 'ngx-toastr';
+import * as _ from 'lodash';
 
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -84,5 +85,32 @@ export class DashboardComponent implements OnInit {
     this.toastr.success('Your data deleted successfully!', 'Success!');
     this.getDatas();
     // });
+  }
+
+  done(rowData){
+    let request= {};
+      let obj =_.pick(rowData, ['orderserviceid', 'status']);
+      obj.status='Completed';
+      request['orderServiceVos'] = new Array(obj);
+      this.httpService.updateAppointment(request).subscribe(res=> {
+        this.toastr.success('Completed successfully!', 'Success!');
+        this.getDatas();
+      },error=>{
+        this.toastr.success('Failed to update!', 'Failure!');
+      });
+
+  }
+
+  cancel(rowData){
+    let request = {};
+    let obj =_.pick(rowData, ['orderserviceid', 'status']);
+    obj.status='Cancelled';
+    request['orderServiceVos'] = new Array(obj);
+    this.httpService.updateAppointment(request).subscribe(res=> {
+      this.toastr.success('Cancelled successfully!', 'Success!');
+      this.getDatas();
+    },error=>{
+      this.toastr.success('Failed to update!', 'Failure!');
+    });
   }
 }

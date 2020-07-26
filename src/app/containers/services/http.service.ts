@@ -594,8 +594,8 @@ export class HttpService {
     return this.http.post(this.URL + environment.getServiceUSer, serviceList);
   }
 
-  getAvailableSlots(empId,appoitmentDate){
-    return this.http.get(this.URL + environment.getAvailableSlots+'/'+empId+'/'+appoitmentDate);
+  getAvailableSlots(booking){
+    return this.http.get(this.URL + environment.getAvailableSlots+'/'+booking.empId+'/'+booking.appointmentTime+"/"+booking.day);
   }
 
   addUser(data) {
@@ -604,6 +604,11 @@ export class HttpService {
 
   getBookings() {
     return this.http.get(this.URL + environment.allMasterData);
+  }
+
+  enableSunday(obj)
+  {
+    return this.http.put(this.URL+environment.enableSunday,obj)
   }
 
   getGalleryList() {
@@ -633,5 +638,10 @@ export class HttpService {
 
   defaultDetailsStr() {
     return this.http.get(this.URL + environment.timeStr);
+  }
+
+  updateAppointment(obj)
+  {
+    return this.http.put(this.URL+ environment.updateAppointment, obj);
   }
 }

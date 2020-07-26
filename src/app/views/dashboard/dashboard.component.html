@@ -14,7 +14,10 @@
                 <th class="text-center"><i class="icon-people"></i></th>
                 <th>Name</th>
                 <th class="text-center">Phone</th>
-                <th>Booking Time</th>
+                <th>BookDate</th>
+                <th>BookTime</th>
+                <th>ServiceName</th>
+                <th>StylisherName</th>
                 <th class="text-center">Status</th>
                 <th>Action</th>
               </tr>
@@ -38,14 +41,23 @@
                   {{rowData.phone}}
                 </td>
                 <td class="table-td">
-                  {{rowData.appointmentTime}}
+                  {{rowData.appDate}}
+                </td>
+                <td class="table-td">
+                  {{rowData.appTime}}
+                </td>
+                <td class="table-td">
+                  {{rowData.serviceName}}
+                </td>
+                <td class="table-td">
+                  {{rowData.stylisherName}}
                 </td>
                 <td class="table-td text-center">
                   {{rowData.status}}
                 </td>
                 <td>
-                  <button class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></button> &nbsp;&nbsp;
-                  <button class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></button>
+                  <button class="btn btn-success" [disabled]="rowData.status === 'Completed' || rowData.status === 'Cancelled'" (click)="done(rowData)"><i class="fa fa-check" aria-hidden="true"></i></button> &nbsp;&nbsp;
+                  <button class="btn btn-danger" [disabled]="rowData.status === 'Completed' || rowData.status === 'Cancelled'" (click)="cancel(rowData)"><i class="fa fa-times" aria-hidden="true"></i></button>
                 </td>
               </tr>
             </ng-template>
