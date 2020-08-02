@@ -27,6 +27,7 @@
                   <th>Name</th>
                   <th class="text-center">Phone</th>
                   <th>Gender</th>
+                  <th>Description</th>
                   <th class="text-center">Join Date</th>
                   <th>Action</th>
                 </tr>
@@ -68,6 +69,10 @@
                       <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                     </div> -->
                     {{rowData.gender}}
+                  </td>
+
+                  <td class="table-td">
+                    {{rowData.description}}
                   </td>
                   <td class="table-td text-center">
                     <!-- <i class="fa fa-cc-mastercard" style="font-size:24px"></i> -->
@@ -151,6 +156,11 @@
             <label for="vat">Phone</label>
             <input type="text" [disabled]="mode !== 'edit'" (change)="isModified = true" [(ngModel)]="user.phone" name="phone" class="form-control"
               id="phone" placeholder="Phone">
+          </div>
+          <div class="form-group">
+            <label for="description">description</label>
+            <input type="text" [disabled]="mode !== 'edit'" (change)="isModified = true" [(ngModel)]="user.description" name="description" class="form-control"
+              id="description" placeholder="description">
           </div>
           <div class="form-group">
             <label for="vat">Email</label>

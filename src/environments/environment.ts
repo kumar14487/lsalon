@@ -6,7 +6,7 @@
 export const environment = {
   production: true,
   host: 'http://',
-  domain: '34.220.200.4:',  // '34.220.200.4:',  // ip
+  domain: 'localhost:',  // '34.220.200.4:',  // ip
   port: '8080',               // port
   // domain: 'https://lsalonservice.azurewebsites.net', http://34.220.200.4:8080/lsalon/servicesUsers
   // port: '',
