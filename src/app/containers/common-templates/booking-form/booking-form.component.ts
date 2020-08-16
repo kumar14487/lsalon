@@ -189,7 +189,7 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
     this.httpService.saveBooking(this.booking).subscribe(data => {
       if (!data['availableSlotsList'] || (data['availableSlotsList'] && data['availableSlotsList'].length <= 0)) {
         $.magnificPopup.close();
-        this.toastr.success('Appointment has been confiremed.');
+        this.toastr.success('Appointment has been confirmed.');
       } else {
         this.availableSlots = data['availableSlotsList'];
       }

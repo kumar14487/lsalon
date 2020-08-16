@@ -14,15 +14,15 @@
              <div class="main-menu  d-none d-lg-block">
               <nav>
                 <ul id="navigation">
-                  <li><a class="active" href="#home">home</a></li>
-                  <li><a href="#about_area">About Us</a></li>
-                  <li><a href="#service_area">service</a></li>
-                  <li><a href="#gallery_area">Gallary </a></li>
-                  <li><a href="#video_area">Our Work </a></li>
-                  <li><a href="#video_area1">Careers</a></li>
-                  <li><a href="#cutter_muster">Stylishers</a></li>
-                  <li><a href="#cutter_muster1">Products</a></li>
-                  <li><a href="#find_us_area">Contact</a></li>
+                  <li><a  (click)="selectedLink('home')" [ngClass]="{'active':isHomeLinkActivated}" href="#home">home</a></li>
+                  <li><a (click)="selectedLink('aboutus')" [ngClass]="{'active':isAboutUsActivated}" href="#about_area">About Us</a></li>
+                  <li><a (click)="selectedLink('service')" [ngClass]="{'active':isServiceActivated}" href="#service_area">service</a></li>
+                  <li><a (click)="selectedLink('gallary')" [ngClass]="{'active':isGallaryActivated}" href="#gallery_area">Gallary </a></li>
+                  <li><a (click)="selectedLink('video1')" [ngClass]="{'active':isVideo1Activated}" href="#video_area">Our Work </a></li>
+                  <li><a (click)="selectedLink('video2')" [ngClass]="{'active':isVideo2Activated}" href="#video_area1">Careers</a></li>
+                  <li><a (click)="selectedLink('cutter1')" [ngClass]="{'active':isCutter1Activated}"  href="#cutter_muster">Stylishers</a></li>
+                  <li><a (click)="selectedLink('cutter2')" [ngClass]="{'active':isCutter2Activated}" href="#cutter_muster1">Products</a></li>
+                  <li><a (click)="selectedLink('findus')" [ngClass]="{'active':isFindActivated}" href="#find_us_area">Contact</a></li>
                 </ul>
               </nav>
             </div>

@@ -5,6 +5,8 @@ import { HttpService } from '../../containers/services/http.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../../containers/services/data.service';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
 
 @Component({
   selector: 'app-user',
@@ -15,6 +17,8 @@ import { DataService } from '../../containers/services/data.service';
 
 export class UserComponent implements OnInit {
 
+  starttime= '';
+  endtime= '';
   action = '';
   expandedRows = {};
   modalRef: BsModalRef;
