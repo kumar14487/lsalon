@@ -165,6 +165,12 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
      this.hasSlots = true;
     });
 
+    if(this.slotList.length==0)
+    {
+      alert("There is no slots available for this stylisher");
+      this.resetForm();
+    }
+
   }
 
   submitForm() {

@@ -59,17 +59,6 @@
                     {{rowData.phone}}
                   </td>
                   <td class="table-td">
-                    <!-- <div class="clearfix">
-                      <div class="float-left">
-                        <strong>50%</strong>
-                      </div>
-                      <div class="float-right">
-                        <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
-                      </div>
-                    </div>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div> -->
                     {{rowData.gender}}
                   </td>
 
@@ -87,18 +76,7 @@
                     {{rowData.joiningOfDate}}
                   </td>
                   <td class="table-td">
-                    <!-- <div class="small text-muted">Sr</div> -->
-                    <!-- <strong>{{booking.bookingDetails.serviceTime}}</strong> -->
-                    <!-- <div class="row">
-                      <i class="fa fa-eye fa-lg m-1 icon-action" (click)="rowExpand(rowData,i, 'view_'+ i)"
-                        [ngClass]="action === 'view_'+i ? 'active' : ''"></i>
-                      <i class="fa fa-edit fa-lg m-1 icon-action" (click)="rowExpand(rowData,i, 'edit_'+i)"
-                        [ngClass]="action === 'edit_'+i ? 'active' : ''"></i>
-                      <i class="fa fa-trash fa-lg m-1 icon-action" (click)="rowExpand(rowData,i, 'delete_'+i)"
-                        [ngClass]="action === 'delete_'+i ? 'active' : ''"></i>
-                      <i class="fa fa-history fa-lg m-1 icon-action" (click)="rowExpand(rowData,i, 'history_'+i)"
-                        [ngClass]="action === 'history_'+i ? 'active' : ''"></i>
-                    </div> -->
+                    
                     <div class="row">
                       <i class="fa fa-eye fa-lg m-1 icon-action"
                         (click)="isModified ? openModal(template) : rowExpand(rowData,i, 'view_'+ i); mode = 'view'"
@@ -109,9 +87,7 @@
                       <i class="fa fa-trash fa-lg m-1 icon-action"
                         (click)="isModified ? openModal(template) : rowExpand(rowData,i, 'delete_'+i); mode = 'delete'"
                         [ngClass]="action === 'delete_'+i ? 'active' : ''"></i>
-                      <!-- <i class="fa fa-history fa-lg m-1 icon-action"
-                        (click)="isModified ? openModal(template) : rowExpand(rowData,i, 'history_'+i); mode = 'history'"
-                        [ngClass]="action === 'history_'+i ? 'active' : ''"></i> -->
+                     
                     </div>
                   </td>
                 </tr>
@@ -120,7 +96,8 @@
               </ng-template>
               <ng-template pTemplate="rowexpansion" let-rowData>
                 <tr>
-                  <td [attr.colspan]="6">
+
+                  <td colspan="9">
                     <ng-container *ngTemplateOutlet="
                     userDetails; context:{rowData: rowData}"></ng-container>
                   </td>
@@ -183,12 +160,11 @@
             </div>
             <div class="form-group col-sm-4">
               <label for="vat">Services</label>
-
-              <p-multiSelect [options]="services" [(ngModel)]="user.serviceLists" optionLabel="serviceName" dataKey="serviceId" maxSelectedLabels="2"></p-multiSelect>
-
-
-              <!-- <input type="text" [disabled]="mode !== 'edit'" (change)="isModified = true" [(ngModel)]="user.gender" name="Gender"
-                class="form-control" id="phone" placeholder="Gender"> -->
+              <p-multiSelect [options]="services" 
+              [(ngModel)]="user.serviceLists" 
+              optionLabel="serviceName" 
+              dataKey="serviceId" 
+              maxSelectedLabels="2"></p-multiSelect>
             </div>
             <div class="form-group col-sm-4">
               <label for="vat">Experience</label>
@@ -200,14 +176,27 @@
           <div class="row">
             <div class="form-group col-sm-4">
               <label for="vat">StartTime</label>
-              <input type="text" [disabled]="mode !== 'edit'" (change)="isModified = true" [(ngModel)]="user.starttime" name="StartTime"
-                class="form-control" id="starttime" placeholder="HH:MM">
+              <input type="text" [disabled]="mode !== 'edit'" (change)="isModified = true" 
+              [(ngModel)]="user.shift.shiftStartTime" name="StartTime"
+                class="form-control" id="shiftstarttime" placeholder="HH:MM:SS">
             </div>
             
             <div class="form-group col-sm-4">
               <label for="vat">EndTime</label>
-              <input type="text" [disabled]="mode !== 'edit'" (change)="isModified = true" [(ngModel)]="user.endtime" name="EndTime"
-                class="form-control" id="endtime" placeholder="HH:MM">
+              <input type="text" [disabled]="mode !== 'edit'" (change)="isModified = true"
+               [(ngModel)]="user.shift.shiftEndTime" name="EndTime"
+                class="form-control" id="endtime" placeholder="HH:MM:SS">
+            </div>
+
+            
+            <div class="form-group col-sm-4">
+              <label for="Days">Select Days</label>
+              <p-multiSelect [options]="dayNames" 
+              [(ngModel)]="user.shift.days" 
+              optionLabel="name" 
+              dataKey="value" maxSelectedLabels="2">
+            </p-multiSelect>
+              
             </div>
           </div>
 

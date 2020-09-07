@@ -6,6 +6,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../../containers/services/data.service';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { filter } from 'lodash';
 
 
 @Component({
@@ -24,8 +25,15 @@ export class UserComponent implements OnInit {
   modalRef: BsModalRef;
   mode = '';
   users: any = [];
+  dayNames: any = [];
+  selectedDays: string[] = [];
+
+  
   user = {
-    address: {}
+    address: {},
+    shift: {
+      
+    }
   };
   isModified = false;
   productImage;
@@ -38,6 +46,14 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDatas();
+    this.dayNames = [
+      { name: 'Sunday', value: 'Sunday' },
+      { name: 'Monday', value: 'Monday' },
+      { name: 'Tuesday', value: 'Tuesday' },
+      { name: 'Wednesday', value: 'Wednesday' },
+      { name: 'Thursday', value: 'Thursday' },
+      { name: 'Friday', value: 'Friday' },
+      { name: 'Saturday', value: 'Saturday' }];
   }
 
   addNew() {
@@ -51,6 +67,7 @@ export class UserComponent implements OnInit {
     this.expandedRows = {
       [id.empId]: this.action === isActive
     };
+    id.shift = id.shift ? id.shift : {};
     this.user = this.action === isActive ? id : {};
     this.user.address = id.address ? id.address : {}
     // [id.user.phone] = this.action === isActive;
@@ -67,11 +84,18 @@ export class UserComponent implements OnInit {
         this.httpService.getServices().subscribe(datas => {
           this.services = datas;
         });
-    //   }
-    // });
+
+        
+   
   }
 
   submitData() {
+console.log(this.user.shift);
+let days=new Array();
+days=this.user.shift['days'];
+console.log(days);
+ let dayArray: any[] = days.filter(obj=> obj['name']);
+ console.log(dayArray);
     this.httpService.addUser(this.user).subscribe(data => {
       this.toastr.success('Your data saved successfully!', 'Success!');
       // this.users = data;
@@ -94,6 +118,7 @@ export class UserComponent implements OnInit {
 
 
   openModal(template: TemplateRef<any>) {
+    alert("open model");
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
 
