@@ -163,13 +163,12 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
   this.httpService.getAvailableSlots(this.booking).subscribe(data => {
      this.slotList= data;
      this.hasSlots = true;
-    });
-
-    if(this.slotList.length==0)
+     if(this.slotList.length===0)
     {
       alert("There is no slots available for this stylisher");
       this.resetForm();
     }
+    });
 
   }
 

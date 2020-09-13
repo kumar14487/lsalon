@@ -32,13 +32,6 @@
               ></timepicker> -->
             </div>
             <div class="col-xl-6 col-md-6">
-              <!-- <select nice-select name="service" #service required (change)="setService(orderServiceVos)"
-                [(ngModel)]="orderServiceVos" [value]="orderServiceVos" [attr.data-value]="orderServiceVos"
-                placeholder="Choose services">
-                <option value="" disabled selected>Select your service</option>
-                <option *ngFor="let data of services" [attr.value]="data.serviceId">{{data.serviceName}}</option>
-              </select>   -->
-             
             <p-multiSelect [styleClass]="'p-custom-multiselect'" [filter]="true" [options]="services" 
               [(ngModel)]="orderServiceVos1" optionLabel="serviceName" defaultLabel="Choose Service"
              (onChange)="setService(orderServiceVos1, $event)"></p-multiSelect>
