@@ -135,9 +135,24 @@ export class BookingFormComponent implements OnInit, AfterViewInit {
       this.serviceList = list;
     }
     console.log(this.serviceList);
-    this.httpService.getUserDetails({serviceLists :this.serviceList}).subscribe(data => {
+    // this.httpService.getUserDetails({serviceLists :this.serviceList}).subscribe(data => {
+    //   this.userList = data;
+    // });
+
+
+ if (typeof this.booking.appointmentTime === 'string')
+      this.booking.appointmentTime = new Date(this.booking.appointmentTime);
+      this.booking['day'] = this.Wday[this.booking.appointmentTime.getDay()];
+      this.booking.appointmentTime =
+      this.booking.appointmentTime.getFullYear() + "-" +
+      ("0" + (this.booking.appointmentTime.getMonth() + 1)).slice(-2) + "-" +
+      ("0" + this.booking.appointmentTime.getDate()).slice(-2);
+
+    this.httpService.getAvaliableEmployees(this.booking).subscribe(data => {
       this.userList = data;
     });
+
+    //getAvaliableEmployees
     // this.services.forEach(element => {
       // if (element.serviceId == id) {
       //   element.customerid = 0;

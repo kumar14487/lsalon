@@ -179,22 +179,25 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         }
       }
     });
-    (<any>$(this.form1.nativeElement)).magnificPopup({
-      type: 'inline',
-      preloader: false,
-      focus: '#name',
+    if(this.form1){
 
-      // When elemened is focused, some mobile browsers in some cases zoom in
-      // It looks not nice, so we disable it:
-      callbacks: {
-        beforeOpen: function () {
-          if ($(window).width() < 700) {
-            this.st.focus = false;
-          } else {
-            this.st.focus = '#name';
+      (<any>$(this.form1.nativeElement)).magnificPopup({
+        type: 'inline',
+        preloader: false,
+        focus: '#name',
+  
+        // When elemened is focused, some mobile browsers in some cases zoom in
+        // It looks not nice, so we disable it:
+        callbacks: {
+          beforeOpen: function () {
+            if ($(window).width() < 700) {
+              this.st.focus = false;
+            } else {
+              this.st.focus = '#name';
+            }
           }
         }
-      }
-    });
+      });
+    }
   }
 }

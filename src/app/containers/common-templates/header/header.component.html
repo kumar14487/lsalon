@@ -23,6 +23,7 @@
                   <li><a (click)="selectedLink('cutter1')" [ngClass]="{'active':isCutter1Activated}"  href="#cutter_muster">Stylishers</a></li>
                   <li><a (click)="selectedLink('cutter2')" [ngClass]="{'active':isCutter2Activated}" href="#cutter_muster1">Products</a></li>
                   <li><a (click)="selectedLink('findus')" [ngClass]="{'active':isFindActivated}" href="#find_us_area">Contact</a></li>
+                  <li><a [routerLink]="'/login'"  >Login</a></li>
                 </ul>
               </nav>
             </div>

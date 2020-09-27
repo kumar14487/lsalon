@@ -12,6 +12,7 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { NiceSelectModule } from 'ng-nice-select';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MakeAppointmentComponent } from './make-appointment/make-appointment.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MakeAppointmentComponent } from './make-appointment/make-appointment.co
   ],
   imports: [
     CommonModule,
+    RouterModule,
     FormsModule,
     CalendarModule,
     MultiSelectModule,

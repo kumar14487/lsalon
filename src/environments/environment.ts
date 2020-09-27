@@ -21,6 +21,7 @@ export const environment = {
   getCustomerPageData: '',
   saveBooking: '/bookAppoitment',
   getServiceUSer: '/multipleServices',
+  getAvaliableEmployees: '/availableslots',
   getAvailableSlots: '/availableslots',
   enableSunday:'/shopopenclosetime/enable',
   updateAppointment:'/updateAppointment',

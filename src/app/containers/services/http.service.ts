@@ -594,6 +594,12 @@ export class HttpService {
     return this.http.post(this.URL + environment.getServiceUSer, serviceList);
   }
 
+  //getAvaliableEmployees
+
+  getAvaliableEmployees(booking){
+    return this.http.get(this.URL + environment.getAvaliableEmployees+'/'+booking.appointmentTime+"/"+booking.day);
+  }
+
   getAvailableSlots(booking){
     return this.http.get(this.URL + environment.getAvailableSlots+'/'+booking.empId+'/'+booking.appointmentTime+"/"+booking.day);
   }
